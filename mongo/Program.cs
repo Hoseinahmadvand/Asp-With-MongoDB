@@ -1,7 +1,20 @@
+using Microsoft.Extensions.Options;
+using mongo.Models;
+using mongo.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+var services = builder.Services;
+
+services.AddRazorPages();
+
+services.AddScoped<IUserService, UserService>();
+
+services.Configure<MongoSettings>(
+      builder.Configuration.GetSection("MongoSettings"));
+services.AddSingleton<MongoSettings>(sp =>
+    sp.GetRequiredService<IOptions<MongoSettings>>().Value);
 
 var app = builder.Build();
 
