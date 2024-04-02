@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Options;
 using mongo.Models;
 using mongo.Services;
+using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,11 @@ services.Configure<MongoSettings>(
       builder.Configuration.GetSection("MongoSettings"));
 services.AddSingleton<MongoSettings>(sp =>
     sp.GetRequiredService<IOptions<MongoSettings>>().Value);
-
+services.AddSingleton<IMongoClient, MongoClient>(service=>
+{
+    var mongosetting=service.GetRequiredService<MongoSettings>();
+    return new MongoClient(mongosetting.ConnectionString);
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,11 +1,11 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using mongo.Common;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace mongo.Models
 {
-    public class User
+    public class User:BaseEntity
     {
-        [BsonId]
-        public Guid Id { get; set; }
+   
         [BsonElement("name")]
         public string Name { get; set; }
         [BsonElement("family")]

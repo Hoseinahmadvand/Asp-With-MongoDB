@@ -18,7 +18,7 @@ namespace AspProMongoDb.Web.Pages.Users
 
         public void OnGet()
         {
-            Users = _userService.GetUsers();
+            Users = _userService.GetAll();
         }
     }
 }
