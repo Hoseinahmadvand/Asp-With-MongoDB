@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Options;
+using mongo.DataBase;
 using mongo.Models;
 using mongo.Services;
 using MongoDB.Driver;
@@ -11,6 +12,8 @@ var services = builder.Services;
 services.AddRazorPages();
 
 services.AddScoped<IUserService, UserService>();
+
+services.AddScoped<MongoDbContext>();
 
 services.Configure<MongoSettings>(
       builder.Configuration.GetSection("MongoSettings"));
